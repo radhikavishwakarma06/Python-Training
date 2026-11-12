@@ -1,0 +1,24 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home - Student Management System</title>
+</head>
+<body>
+
+    <h1>Welcome to Student Management System</h1>
+
+    <p>This system helps manage student records easily.</p>
+
+    <h3>What would you like to do?</h3>
+
+    <a href="{% url 'student_list' %}">View All Students</a>
+    <br><br>
+
+    <a href="{% url 'add_student' %}">Add New Student</a>
+    <br><br>
+
+    <a href="{% url 'about' %}">About Project</a>
+
+</body>
+</html>

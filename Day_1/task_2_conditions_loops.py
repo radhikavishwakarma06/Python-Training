@@ -11,7 +11,7 @@ def check_number():
     else:
         print("zero")
 
-check_number
+check_number()
 
 # Check even or odd
 def check(num):
