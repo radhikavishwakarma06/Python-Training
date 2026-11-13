@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from .models import Student
 from .forms import StudentForm
 from django.contrib import messages
+
 
 def student_list(request):
     students = Student.objects.all()
@@ -41,7 +42,7 @@ def about(request):
     return render(request,'students/about.html')
 
 def edit_student(request, id):
-    student = Student.objects.get(id=id)
+    student = get_object_or_404(Student,id=id)
 
     if request.method == "POST":
         form = StudentForm(request.POST,instance = student)
@@ -57,7 +58,7 @@ def edit_student(request, id):
     return render(request, "students/edit_student.html", {"form": form})
 
 def delete_student(request, id):
-    student = Student.objects.get(id = id)
+    student = get_object_or_404(Student,id = id)
 
     if request.method == "POST":
         student.delete()
@@ -68,5 +69,5 @@ def delete_student(request, id):
         request,
         'students/delete_student.html',
         {'student':student}
-        
+
     )
