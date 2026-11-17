@@ -1,0 +1,22 @@
+{% extends 'students/base.html' %}
+
+{% block content %}
+
+<h2>Student Training Portal Dashboard</h2>
+
+<p>Welcome to the Dashboard!</p>
+
+<h3>Total Students: {{ total_students }}</h3>
+<h3>Total Active Students: {{ active_students }}</h3>
+<h3>Total Departments: {{ total_departments }}</h3>
+<h3>Total Courses: {{ total_courses }}</h3>
+<h3>Average Marks: {{ average_marks|default:"0"|floatformat:2 }}</h3>
+<h3>Highest_Scoring_Student: {{ highest_students }}</h3>
+<h3>Recently Joined Students</h3>
+
+{% for student in recent_students %}
+    <p>{{ student.name }} - {{ student.joined_date }}</p>
+{% empty %}
+    <p>No students found.</p>
+{% endfor %}
+{% endblock %}

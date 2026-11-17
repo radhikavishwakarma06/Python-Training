@@ -1,0 +1,165 @@
+{% extends 'students/base.html' %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Management System</title>
+</head>
+
+
+<body>
+
+
+
+    {% if messages %}
+    {% for message in messages %}
+        <p style="color: green; font-weight: bold;">
+            {{ message }}
+        </p>
+    {% endfor %}
+{% endif %}
+
+    <h1>Student Management System</h1>
+     {% if user.is_authenticated %}
+    <h3>Welcome, {{ user.username }}!</h3>
+{% endif %}
+
+    <h3>Total Students: {{ total_students }}</h3>
+
+    <h3>Active Students: {{ active_students }}</h3>
+
+    <a href="{% url 'add_student' %}">Add New Student</a>
+    <br><br>
+
+    <a href="{% url 'logout' %}">Logout</a>
+
+    <br><br>
+
+    <form method="GET">
+    <select name="department">
+        <option value="">All Departments</option>
+
+        {% for department in departments %}
+            <option value="{{ department.id }}">
+                {{ department.name }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Filter</button>
+
+    <br>
+    <br>
+    <select name="course">
+    <option value="">All Courses</option>
+
+    {% for course in courses %}
+        <option value="{{ course.id }}">
+            {{ course.course_name }}
+        </option>
+    {% endfor %}
+
+</select>
+<br>
+<br>
+
+    <select name="status">
+    <option value="">All Students</option>
+    <option value="active">Active</option>
+    <option value="inactive">Inactive</option>
+</select>
+    <br>
+    <br>
+
+     <select name="result">
+    <option value="">All Results</option>
+    <option value="pass">Pass</option>
+    <option value="fail">Fail</option>
+</select>
+
+    <br>
+    <br>
+    <input
+    type="text"
+    name="search"
+    placeholder="Search name, email or course..."
+>
+ 
+</form>
+
+
+
+
+
+    <hr>
+
+    <h2>Student Details</h2>
+
+    <table border="1" cellpadding="10">
+
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Department</th>
+            <th>Course Count</th>
+            <th>Age</th>
+            <th>Marks</th>
+            <th>Joined Date</th>
+            <th>Status</th>
+            <th>Result</th>
+        </tr>
+
+        {% for student in students %}
+
+        <tr>
+            <td>{{ student.name }}</td>
+            <td>{{ student.email }}</td>
+            <td>{{ student.department.name }}</td>
+            <td>{{ student.total_courses }}</td>
+            <td>{{ student.age }}</td>
+            
+            <td>{{ student.marks }}</td>
+            <td>{{ student.joined_date }}</td>
+
+            <td>
+                {% if student.is_active %}
+                    Active
+                {% else %}
+                    Inactive
+                {% endif %}
+            </td>
+
+            <td>
+                {% if student.marks >= 40 %}
+                    Pass
+                {% else %}
+                    Fail
+                {% endif %}
+            </td>
+            <td>
+                 <a href="{% url 'edit_student' student.id %}">Edit</a>
+
+                 |
+
+                 <a href="{% url 'delete_student' student.id %}">Delete</a>
+        </td>
+
+        </tr>
+
+        {% empty %}
+
+        <tr>
+            <td colspan="8">No students found.</td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+
+</body>
+</html>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+from django.urls import path
+from . import views
+
+urlpatterns = [
+
+    path('register/',views.register, name = 'register'),
+    path('login/',views.user_login,name = 'login'),
+    path('dashboard/',views.dashboard, name = 'dashboard'),
+    path('',views.student_list, name = 'student_list'),
+    path('<int:id>/',views.student_detail, name = 'student_detail'),
+    path('add/',views.add_student, name = 'add_student'),
+    path('edit/<int:id>/',views.edit_student,name=  'edit_student'),
+    path('delete/<int:id>/',views.delete_student, name = 'delete_student'),
+    path('logout/',views.user_logout,name= 'logout'),
+]

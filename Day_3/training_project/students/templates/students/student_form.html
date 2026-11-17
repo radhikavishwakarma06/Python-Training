@@ -1,0 +1,31 @@
+{% extends 'students/base.html' %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Student Form</title>
+
+    </head>
+
+    <body>
+
+        <h1>{{title}}</h1>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit">{{ button_text }}</button>
+        </form>
+
+        <br>
+
+        <a href="{% url 'student_list' %}">Back to Student List</a>
+    </body>
+</html>
+
+{% endblock %}

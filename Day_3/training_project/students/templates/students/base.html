@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Training Portal</title>
+</head>
+<body>
+
+    <h1>Student Training Portal</h1>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="{% url 'home' %}">Home</a> |
+        <a href="{% url 'dashboard' %}">Dashboard</a> |
+        <a href="{% url 'student_list' %}">Students</a>
+    </nav>
+
+    <hr>
+
+
+    <!-- Django Messages -->
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Child Template Content -->
+    {% block content %}
+    {% endblock %}
+
+</body>
+</html>
