@@ -11,6 +11,7 @@ def student_list(request):
         is_active = True
     ).count()
 
+
     context = {
         'students': students,
         'total_students': total_students,
@@ -33,7 +34,9 @@ def add_student(request):
     else:
         form = StudentForm()
 
-    return render(request, 'students/add_student.html',{'form': form})
+    return render(request, 'students/student_form.html',{'form': form,
+                     'title':"Add Student",'button_text': 'Add Student'})
+
 
 def home(request):
     return render(request, 'students/home.html')
@@ -41,33 +44,45 @@ def home(request):
 def about(request):
     return render(request,'students/about.html')
 
-def edit_student(request, id):
-    student = get_object_or_404(Student,id=id)
 
-    if request.method == "POST":
-        form = StudentForm(request.POST,instance = student)
+# def student_detail(request,id):
+#     student = get_object_or_404(Student,id=id)
 
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Student updated successfully")
-            return redirect("student_list")
+#     return render(
+#         request, 'students/student_detail.html',
+#         {'student': student}
+#     )
 
-    else:
-        form = StudentForm(instance=student)
+# def edit_student(request, id):
+#     student = get_object_or_404(Student,id=id)
 
-    return render(request, "students/edit_student.html", {"form": form})
+#     if request.method == "POST":
+#         form = StudentForm(request.POST,instance = student)
 
-def delete_student(request, id):
-    student = get_object_or_404(Student,id = id)
+#         if form.is_valid():
+#             form.save()
+#             messages.success(request, "Student updated successfully")
+#             return redirect("student_list")
 
-    if request.method == "POST":
-        student.delete()
-        messages.success(request, "Student deleted successfully")
-        return redirect('student_list')
+#     else:
+#         form = StudentForm(instance=student)
 
-    return render(
-        request,
-        'students/delete_student.html',
-        {'student':student}
+#     return render(request, "students/student_form.html",
+#                    {"form": form,'title': 'Edit Student',"button_text": "Edit Student"})
 
-    )
+
+
+# def delete_student(request, id):
+#     student = get_object_or_404(Student,id = id)
+
+#     if request.method == "POST":
+#         student.delete()
+#         messages.success(request, "Student deleted successfully")
+#         return redirect('student_list')
+
+#     return render(
+#         request,
+#         'students/delete_student.html',
+#         {'student':student}
+
+#     )
